@@ -8,7 +8,7 @@
 
   display: grid;
   grid-template-rows: 20px 1fr 20px;
-  align-items: center;
+  /* align-items: center; */
   justify-items: center;
   min-height: 100svh;
   padding: 80px;
@@ -79,6 +79,14 @@
   font-size: 16px;
   line-height: 20px;
   font-weight: 500;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
 }
 
 a.primary {

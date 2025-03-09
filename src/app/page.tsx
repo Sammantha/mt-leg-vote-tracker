@@ -1,4 +1,7 @@
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import styles from "./page.module.css";
+import { Bill, BillVote } from "./types";
 
 const API_KEY = process.env.API_KEY;
 const SHEET_ID = "1eyxPg-LHmn4EdWwKyR1hTNzMZoB7YOkBA2YJkPZ8IRs";
@@ -20,26 +23,35 @@ export default async function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-      <h1>Bills</h1>
-      <table id="billTable">
-          <thead>
-              <tr>
-                  <th>Bill</th>
-                  <th>Title</th>
-                  <th>Votes</th>
-              </tr>
-          </thead>
-          <tbody id="votesList">
-            { billData.map((bill: any, i: number) => {
-              return (
-                <tr key={'row_' + i}>
-                  <td key={'data_id_' + i}>{bill[0]}</td>
-                  <td key={'data_title_' + i}>{bill[1]}</td>
-                  <td key={'data_votes_' + i}>{bill[2]}</td>
-                </tr>
-              )})}
-          </tbody>
-      </table>
+      <h1>2025 MT Legislature Bills</h1>
+      { billData.map((bill: string, i: number) => {
+        const voteData: BillVote = JSON.parse(bill[2].replace(/\//g,''));
+        const voters: string[] = Object.keys(voteData);
+        const voteValues: string[] = Object.values(voteData);
+
+        return (
+          <Accordion key={"panel_" + i}>
+            <AccordionSummary
+              expandIcon={<ArrowDropDownIcon />}
+              aria-controls="panel-content"
+              key={"panel-header_" + i}
+            >
+              <Typography component="span">{bill[0]}: {bill[1]}</Typography>
+            </AccordionSummary>
+            <AccordionDetails
+              key={"panel-details_" + i}>
+                {voters?.map((voterId: string, index: number) => {
+                  const data: string = voteValues[index];
+                  return (
+                    <Typography key={'vote_' + index}>
+                      <span>{voterId}</span>
+                      <span className={styles.right}>{data}</span>
+                    </Typography>
+                  )
+                })}
+            </AccordionDetails>
+          </Accordion>
+        )})}
       </main>
     </div>
   );
