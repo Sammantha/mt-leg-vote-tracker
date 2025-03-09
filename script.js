@@ -1,4 +1,4 @@
-const API_KEY = "AIzaSyAxHEiv0K4bWNI8tCGvYnIKSCSYU-y4CIs";
+const API_KEY = process.env.API_KEY;
 const SHEET_ID = "1eyxPg-LHmn4EdWwKyR1hTNzMZoB7YOkBA2YJkPZ8IRs";
 const RANGE = "Sheet1!A:C";  // Adjust based on your sheet structure
 
