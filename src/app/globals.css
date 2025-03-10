@@ -24,6 +24,21 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  grid-row-start: 2;
+}
+
+.flex {
+  display: flex;
+}
+
+.menu {
+  justify-content: space-around;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;

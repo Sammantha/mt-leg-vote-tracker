@@ -1,7 +1,8 @@
 export type Bill = {
     id: string;
-    title: string;
+    // title: string;
     votes: BillVote[];
+    link: string;
 };
 
 export type BillVote = {
