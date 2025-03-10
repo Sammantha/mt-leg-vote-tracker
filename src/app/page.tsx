@@ -1,7 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import styles from "./page.module.css";
-import { Bill, BillVote } from "./types";
+import { BillVote } from "./types";
 
 const API_KEY = process.env.API_KEY;
 const SHEET_ID = "1eyxPg-LHmn4EdWwKyR1hTNzMZoB7YOkBA2YJkPZ8IRs";
@@ -25,6 +25,10 @@ export default async function Home() {
       <main className={styles.main}>
       <h1>2025 MT Legislature Bills</h1>
       { billData.map((bill: string, i: number) => {
+        if (i === 0) {
+          // skip the header row
+          return;
+        }
         const voteData: BillVote = JSON.parse(bill[2].replace(/\//g,''));
         const voters: string[] = Object.keys(voteData);
         const voteValues: string[] = Object.values(voteData);
@@ -38,15 +42,15 @@ export default async function Home() {
             >
               <Typography component="span">{bill[0]}: {bill[1]}</Typography>
             </AccordionSummary>
-            <AccordionDetails
-              key={"panel-details_" + i}>
+            <AccordionDetails className={styles.accordian} key={"panel-details_" + i}>
                 {voters?.map((voterId: string, index: number) => {
                   const data: string = voteValues[index];
+                  const isYes: boolean = data === 'YES';
                   return (
-                    <Typography key={'vote_' + index}>
-                      <span>{voterId}</span>
-                      <span className={styles.right}>{data}</span>
-                    </Typography>
+                    <div className={styles.flex} key={'vote_' + index}>
+                      <Typography>{voterId}</Typography>
+                      <button className={isYes ? styles.greenYes : styles.redNo}>{data}</button>
+                    </div>
                   )
                 })}
             </AccordionDetails>
