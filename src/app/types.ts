@@ -1,10 +1,22 @@
-export type Bill = {
+export type BillInput = {
     id: string;
     // title: string;
-    votes: BillVote[];
+    votes: BillVoteInput[];
     link: string;
 };
 
-export type BillVote = {
+export type BillVoteInput = {
     string: 'YES' | 'NO';
+};
+
+export type BillOutput = {
+    id: string;
+    // title: string;
+    votes: BillVoteOutput[];
+    link: string;
+};
+
+export type BillVoteOutput = {
+    name: string;
+    vote: string;
 };

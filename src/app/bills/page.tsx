@@ -1,7 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import styles from "./page.module.css";
-import { BillVote } from "../types";
+import { BillVoteInput, BillVoteOutput } from "../types";
 
 const API_KEY = process.env.API_KEY;
 // const SHEET_ID = "1eyxPg-LHmn4EdWwKyR1hTNzMZoB7YOkBA2YJkPZ8IRs/s";
@@ -19,6 +19,30 @@ async function fetchData(): Promise<any> {
   }
 }
 
+// transform the names from first last to last, first
+// and alphabetize by last name ASC
+const transformNames = (votes: BillVoteInput[]): BillVoteOutput[] => {
+  const votesWithFormattedNames: BillVoteOutput[] = [];
+  const names: string[] = Object.keys(votes);
+
+  names.forEach((name: string) => {
+    const billVote: string = votes[name];
+
+    const nameParts = name.split(' ');
+    const nameFormatted = nameParts[1].concat(', ').concat(nameParts[0]);
+    votesWithFormattedNames.push({
+      name: nameFormatted,
+      vote: billVote
+    });
+  });
+
+  return votesWithFormattedNames.sort((a: BillVoteOutput, b: BillVoteOutput) => {
+    var textA = a.name.toUpperCase();
+    var textB = b.name.toUpperCase();
+    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+  });
+};
+
 export default async function Home() {
   const billData = await fetchData();
   return (
@@ -34,32 +58,32 @@ export default async function Home() {
           // skip the header row
           return;
         }
-        const voteData: BillVote = JSON.parse(bill[1].replace(/\'/g,"\""));
-        const voters: string[] = Object.keys(voteData);
-        const voteValues: string[] = Object.values(voteData);
+        const billName = bill[0];
+        const billTitle = bill[1];
+        const voteData: BillVoteInput[] = JSON.parse(bill[2].replace(/\'/g,"\""));
+        const transformedVoteData: BillVoteOutput[] = transformNames(voteData);
 
         return (
-          <Accordion key={"panel_" + i}>
+          <Accordion key={"panel_" + i} className={styles.accordion}>
             <AccordionSummary
               expandIcon={<ArrowDropDownIcon />}
               aria-controls="panel-content"
               key={"panel-header_" + i}
             >
-              {/* <Typography component="span">{bill[0]}: {bill[1]}</Typography> */}
-              <Typography component="span">{bill[0]}</Typography>
+              <Typography component="span">{billName}: {billTitle} {transformedVoteData.length === 0 ? " - - No votes yet - - ": ""}</Typography>
             </AccordionSummary>
-            <AccordionDetails className={styles.accordion} key={"panel-details_" + i}>
-                {voters?.map((voterId: string, index: number) => {
-                  const data: string = voteValues[index];
-                  const isYes: boolean = data.includes('YES');
-                  const isNo: boolean = data.includes('NO');
-                  return (
-                    <div className={styles.flex} key={'vote_' + index}>
-                      <Typography>{voterId}</Typography>
-                      <button className={isYes ? styles.greenYes : isNo ? styles.redNo : styles.grayAbsent}>{data}</button>
-                    </div>
-                  )
-                })}
+            <AccordionDetails className={styles.accordionDetails} key={"panel-details_" + i}>
+              {transformedVoteData?.map((voteData: BillVoteOutput, index: number) => {
+                const isYes: boolean = voteData.vote.includes('YES');
+                const isNo: boolean = voteData.vote.includes('NO');
+                return <div className={styles.votesContainer} key={"vote_" + index}>
+                  <div
+                    aria-label={voteData.name.concat(isYes ? ' voted yes.' : isNo ? ' voted no.' : ' did not vote.')} 
+                    className={isYes ? styles.greenYes : isNo ? styles.redNo : styles.grayAbsent}
+                    ></div>
+                  <Typography className={styles.voterName}>{voteData.name}</Typography>
+                </div>
+              })}
             </AccordionDetails>
           </Accordion>
         )})}
