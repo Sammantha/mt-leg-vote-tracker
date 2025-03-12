@@ -8,6 +8,7 @@ const API_KEY = process.env.API_KEY;
 const SHEET_ID = "1aJXXfGEBPjTtnf5UBin_x9IBf13kcGybSdkfe05aMoE";
 const RANGE = "all_bills!A1:E101";  // Adjust based on sheet structure
 
+// @ts-ignore typescript-eslint/no-explicit-any
 async function fetchData(): Promise<any> {
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`;
   try {
@@ -37,8 +38,8 @@ const transformNames = (votes: BillVoteInput[]): BillVoteOutput[] => {
   });
 
   return votesWithFormattedNames.sort((a: BillVoteOutput, b: BillVoteOutput) => {
-    var textA = a.name.toUpperCase();
-    var textB = b.name.toUpperCase();
+    const textA = a.name.toUpperCase();
+    const textB = b.name.toUpperCase();
     return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
   });
 };

@@ -1,13 +1,13 @@
 import { Card, CardContent, Typography } from "@mui/material";
 import styles from "./page.module.css";
 import Link from "next/link";
-import { Member } from "../types";
 
 const API_KEY = process.env.API_KEY;
 const SHEET_ID = "1eyxPg-LHmn4EdWwKyR1hTNzMZoB7YOkBA2YJkPZ8IRs";
 // const SHEET_ID = "1aJXXfGEBPjTtnf5UBin_x9IBf13kcGybSdkfe05aMoE";
 const RANGE = "all_members!A1:C101";  // Adjust based on sheet structure
 
+// @ts-ignore typescript-eslint/no-explicit-any
 async function fetchData(): Promise<any> {
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`;
   try {
