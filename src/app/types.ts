@@ -1,6 +1,6 @@
 export type BillInput = {
     id: string;
-    // title: string;
+    title: string;
     votes: BillVoteInput[];
     link: string;
 };
@@ -11,7 +11,7 @@ export type BillVoteInput = {
 
 export type BillOutput = {
     id: string;
-    // title: string;
+    title: string;
     votes: BillVoteOutput[];
     link: string;
 };
@@ -19,4 +19,10 @@ export type BillOutput = {
 export type BillVoteOutput = {
     name: string;
     vote: string;
+};
+
+export type Member = {
+    id: number;
+    name: string;
+    category: string;
 };

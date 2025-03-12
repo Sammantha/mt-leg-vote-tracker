@@ -35,6 +35,10 @@ main {
   display: flex;
 }
 
+div[disabled] {
+  background-color: blue;
+}
+
 .menu {
   justify-content: space-around;
 }

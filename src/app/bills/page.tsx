@@ -6,7 +6,7 @@ import { BillVoteInput, BillVoteOutput } from "../types";
 const API_KEY = process.env.API_KEY;
 // const SHEET_ID = "1eyxPg-LHmn4EdWwKyR1hTNzMZoB7YOkBA2YJkPZ8IRs/s";
 const SHEET_ID = "1aJXXfGEBPjTtnf5UBin_x9IBf13kcGybSdkfe05aMoE";
-const RANGE = "all_bills!A:E";  // Adjust based on sheet structure
+const RANGE = "all_bills!A1:E101";  // Adjust based on sheet structure
 
 async function fetchData(): Promise<any> {
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`;
