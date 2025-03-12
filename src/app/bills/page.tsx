@@ -27,6 +27,7 @@ const transformNames = (votes: BillVoteInput[]): BillVoteOutput[] => {
   const names: string[] = Object.keys(votes);
 
   names.forEach((name: string) => {
+    // @ts-ignore
     const billVote: string = votes[name];
 
     const nameParts = name.split(' ');
