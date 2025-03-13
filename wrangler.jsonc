@@ -1,5 +1,5 @@
 {
-    "main": "src/index.js",
+    "main": "src/page.tsx",
     "name": "mt-voting-information-everyone-wants",
     "compatibility_date": "2024-09-23",
     "compatibility_flags": [
