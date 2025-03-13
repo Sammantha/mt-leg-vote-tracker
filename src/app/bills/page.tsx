@@ -55,7 +55,7 @@ export default async function Home() {
       {/* Filters */}
 
       {/* Data */}
-      { billData.map((bill: string, i: number) => {
+      { billData?.map((bill: string, i: number) => {
         if (i === 0) {
           // skip the header row
           return;
