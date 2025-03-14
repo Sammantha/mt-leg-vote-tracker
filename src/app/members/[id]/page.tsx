@@ -3,6 +3,8 @@ const API_KEY = process.env.API_KEY;
 const SHEET_ID = "1eyxPg-LHmn4EdWwKyR1hTNzMZoB7YOkBA2YJkPZ8IRs"; // temp sheet
 // const SHEET_ID = "1aJXXfGEBPjTtnf5UBin_x9IBf13kcGybSdkfe05aMoE";
 
+export const runtime = 'edge';
+
 // @ts-ignore typescript-eslint/no-explicit-any
 async function fetchData(id: number): Promise<any> {
     const RANGE = `all_members!A${id + 1}:C${id + 1}`;  // Adjust based on sheet structure
