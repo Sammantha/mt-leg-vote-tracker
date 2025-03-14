@@ -35,7 +35,7 @@ export default async function Members() {
           return;
         }
         return (
-          <Link key={`member_${index}`} href={`/members:${memberInfo[0]}`}>
+          <Link key={`member_${index}`} href={`/members/${memberInfo[0]}`}>
             <Card className="card" sx={{ minWidth: 275 }}>
               <CardContent className={styles.cardContent}>
                 <Typography className={styles.member}>

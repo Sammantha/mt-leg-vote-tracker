@@ -1,0 +1,10 @@
+{
+    "name:": "mt-leg-vote-tracker",
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "montana-legislature-test",
+        "database_id": "87e1ab1c-4c82-4e20-b9e8-c0130fb52da1"
+      }
+    ]
+  }
