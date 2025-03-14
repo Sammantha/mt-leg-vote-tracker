@@ -26,7 +26,6 @@ export default async function Member({
     const { id } = await params;
     const result = await fetchData(parseInt(id));
     const memberData = result[0];
-    console.log('memberData', memberData);
 
     return <div className={styles.title}>
         <h1>{memberData[1]}</h1>
