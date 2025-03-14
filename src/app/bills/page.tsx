@@ -56,7 +56,7 @@ export default async function Home(context: any) {
       {/* Filters */}
 
       {/* Data */}
-      { billData?.map((bill: string, i: number) => {
+      {/* { billData?.map((bill: string, i: number) => {
         if (i === 0) {
           // skip the header row
           return;
@@ -89,7 +89,7 @@ export default async function Home(context: any) {
               })}
             </AccordionDetails>
           </Accordion>
-        )})}
+        )})} */}
         </div>
     </div>
   );

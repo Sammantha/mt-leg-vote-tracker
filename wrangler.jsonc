@@ -11,5 +11,8 @@
         "database_name": "montana-legislature-test",
         "database_id": "e2516cb4-5dee-443e-b6a3-2a84659d02e1"
         }
-    ]
+    ],
+    "vars": {
+        "NODE_VERSION": "18.18.0"
+    }
 }
