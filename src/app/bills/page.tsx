@@ -3,22 +3,22 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import styles from "./page.module.css";
 import { BillVoteInput, BillVoteOutput } from "../types";
 
-const API_KEY = process.env.API_KEY;
-// const SHEET_ID = "1eyxPg-LHmn4EdWwKyR1hTNzMZoB7YOkBA2YJkPZ8IRs/s";
-const SHEET_ID = "1aJXXfGEBPjTtnf5UBin_x9IBf13kcGybSdkfe05aMoE";
-const RANGE = "all_bills!A1:E101";  // Adjust based on sheet structure
+// const API_KEY = process.env.API_KEY;
+// // const SHEET_ID = "1eyxPg-LHmn4EdWwKyR1hTNzMZoB7YOkBA2YJkPZ8IRs/s";
+// const SHEET_ID = "1aJXXfGEBPjTtnf5UBin_x9IBf13kcGybSdkfe05aMoE";
+// const RANGE = "all_bills!A1:E101";  // Adjust based on sheet structure
 
-// @ts-ignore typescript-eslint/no-explicit-any
-async function fetchData(): Promise<any> {
-  const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`;
-  try {
-      const response = await fetch(url);
-      const data = await response.json();
-      return data.values;
-  } catch (error) {
-      console.error("Error fetching data: ", error);
-  }
-}
+// // @ts-ignore typescript-eslint/no-explicit-any
+// async function fetchData(): Promise<any> {
+//   const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`;
+//   try {
+//       const response = await fetch(url);
+//       const data = await response.json();
+//       return data.values;
+//   } catch (error) {
+//       console.error("Error fetching data: ", error);
+//   }
+// }
 
 // transform the names from first last to last, first
 // and alphabetize by last name ASC
@@ -45,8 +45,9 @@ const transformNames = (votes: BillVoteInput[]): BillVoteOutput[] => {
   });
 };
 
-export default async function Home() {
-  const billData = await fetchData();
+export default async function Home(context: any) {
+  console.log('context', context);
+  const billData = context;
   return (
     <div className={styles.page}>
       <div className={styles.main}>

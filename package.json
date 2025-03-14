@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "pages:build": "npx @cloudflare/next-on-pages",
-    "preview": "npm run pages:build && wrangler pages --d1 DB=e2516cb4-5dee-443e-b6a3-2a84659d02e1 dev",
+    "preview": "npm run pages:build && wrangler pages dev --d1 DB=e2516cb4-5dee-443e-b6a3-2a84659d02e1",
     "deploy": "npm run pages:build && wrangler pages deploy"
   },
   "dependencies": {
